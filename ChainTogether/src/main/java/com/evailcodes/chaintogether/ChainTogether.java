@@ -18,8 +18,8 @@ public class ChainTogether {
     public static final String MODID = "chaintogether";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public ChainTogether() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public ChainTogether(FMLJavaModLoadingContext context) {
+        IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::commonSetup);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ChainConfig.SPEC, "chaintogether-common.toml");

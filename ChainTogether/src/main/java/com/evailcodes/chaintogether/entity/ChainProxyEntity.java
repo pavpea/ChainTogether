@@ -23,8 +23,8 @@ public class ChainProxyEntity extends Entity {
     
 
     @Override
-    protected void defineSynchedData() {
-        this.entityData.define(DATA_CHAINED_PLAYER, -1);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_CHAINED_PLAYER, -1);
     }
 
     public void setChainedPlayerId(int id) {

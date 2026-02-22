@@ -44,8 +44,8 @@ public class ChainHandler {
     }
 
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.END && event.player instanceof ServerPlayer player) {
+    public void onPlayerTick(TickEvent.PlayerTickEvent.Post event) {
+        if (event.player instanceof ServerPlayer player) {
             ServerPlayer partner = getPartner(player);
             if (partner != null) {
                 // 只有当两个玩家在同一维度时才执行链条逻辑

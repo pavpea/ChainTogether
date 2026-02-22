@@ -1,8 +1,8 @@
 package com.evailcodes.chaintogether.network;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 import java.util.function.Supplier;
 
@@ -15,7 +15,7 @@ public class UpdateChainLengthPacket {
         this.player2Pos = player2Pos;
     }
 
-    public static void encode(UpdateChainLengthPacket packet, FriendlyByteBuf buf) {
+    public static void encode(UpdateChainLengthPacket packet, RegistryFriendlyByteBuf buf) {
         buf.writeDouble(packet.player1Pos.x);
         buf.writeDouble(packet.player1Pos.y);
         buf.writeDouble(packet.player1Pos.z);
@@ -24,17 +24,17 @@ public class UpdateChainLengthPacket {
         buf.writeDouble(packet.player2Pos.z);
     }
 
-    public static UpdateChainLengthPacket decode(FriendlyByteBuf buf) {
+    public static UpdateChainLengthPacket decode(RegistryFriendlyByteBuf buf) {
         Vec3 player1Pos = new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble());
         Vec3 player2Pos = new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble());
         return new UpdateChainLengthPacket(player1Pos, player2Pos);
     }
 
-    public static void handle(UpdateChainLengthPacket packet, Supplier<NetworkEvent.Context> context) {
-        context.get().enqueueWork(() -> {
+    public static void handle(UpdateChainLengthPacket packet, CustomPayloadEvent.Context context) {
+        context.enqueueWork(() -> {
             // 客户端处理逻辑将在客户端包处理器中实现
         });
-        context.get().setPacketHandled(true);
+        context.setPacketHandled(true);
     }
 
     public Vec3 getPlayer1Pos() {
